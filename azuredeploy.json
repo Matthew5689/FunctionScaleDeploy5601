@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-06-01",
+            "name": "linkedTemplate",
+			"dependsOn": [],
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/Matthew5689/ArmTemplate5601Test2/main/JustServiceBus2.json",
+                    "contentVersion": "1.0.0.0"
+                }
+			}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-06-01",
+            "name": "linkedTemplate2",
+			"dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', 'linkedTemplate')]"
+            ],
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/Matthew5689/ArmTemplate5601Test2/main/JustServiceBus3.json",
+                    "contentVersion": "1.0.0.0"
+                	},
+                    "parameters": {
+                        "ServiceBusConnStr": {
+                            "value": "[reference('linkedTemplate').outputs.NamespaceConnectionString.value]"
+                        }
+                    }
+            	}
+        	}
+        ],
+        "outputs": {
+            "messageFromLinkedTemplate": {
+                "type": "string",
+                "value": "[reference('linkedTemplate').outputs.NamespaceConnectionString.value]"
+        }
+    }
+}
