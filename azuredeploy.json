@@ -27,7 +27,7 @@
             "properties": {
                 "mode": "incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/Matthew5689/ArmTemplate5601Test2/main/mainTemplate.json",
+                    "uri": "https://raw.githubusercontent.com/Matthew5689/ArmTemplate5601Test2/main/JustServiceBus3.json",
                     "contentVersion": "1.0.0.0"
                 	},
                     "parameters": {
